@@ -95,10 +95,10 @@ app.put("/api/users/:id", (req, res) => {
     throw new Error("user not found!");
   }
 
-  //   if (!req.body || !req.body.length < 3) {
-  //     res.status(400);
-  //     res.send("Bad request:( fields must be greater than 3 characters");
-  //   }
+  if (!req.body || !req.body.length < 3) {
+    res.status(400);
+    res.send("Bad request:( fields must be greater than 3 characters");
+  }
   person.name = req.body.name;
   person.email = req.body.email;
   person.phone = req.body.phone;
