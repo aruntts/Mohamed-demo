@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "arun",
+    "email": "arun@gmail.com",
+    "phone": "1234567890"
+  },
+  {
+    "id": 2,
+    "name": "Dhaanish",
+    "email": "dhaanish@gmail.com",
+    "phone": "12345678"
+  },
+  {
+    "id": 3,
+    "name": "Bob",
+    "email": "bob@gmail.com",
+    "phone": "1234567"
+  },
+  {
+    "id": 4,
+    "name": "Simon",
+    "email": "simon@gmail.com",
+    "phone": "123456"
+  },
+  {
+    "id": 5,
+    "name": "Siddik",
+    "email": "siddik@gmail.com",
+    "phone": "123456783"
+  }
+]
