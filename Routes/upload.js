@@ -10,13 +10,16 @@ const storage = multer.diskStorage({
     cb(null, "./public/uploads");
   },
   filename: (res, file, cb) => {
-    cb(null, file.fieldname + "_" + Date.now());
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
   },
 });
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 2 * 1000 * 1000 },
+  // limits: { fileSize: 2 * 1000 * 1000 },
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype == "image/png" ||
@@ -34,11 +37,14 @@ router.get("/uploads", (req, res) => {
   res.sendFile(path.join(rootDir, "views", "upload.html"));
 });
 router.use(errorHandler);
+
 const uploadImage = upload.array("image", 3);
+
 router.post("/uploads", (req, res) => {
   uploadImage(req, res, (err) => {
     if (err) {
-      return res.status(400).send({ status: 400, message: err.message });
+      console.log({ status: 400, message: err.message });
+      return res.status(400).json({ status: 400, message: err.message });
     }
     res.status(200).send(req.files);
   });

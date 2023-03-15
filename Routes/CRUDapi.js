@@ -1,6 +1,11 @@
 const express = require(`express`);
 const router = express.Router();
+const bodyparser = require("body-parser");
+router.use(bodyparser.json());
 const errorHandler = require("../Middleware/errorHandler");
+const { check, validationResult } = require("express-validator");
+const crudSchema = require("../schema/crudValidationSchema");
+const crudValidateSchema = require("../Middleware/crudValidationResult");
 const employees = [
   {
     id: 1,
@@ -37,7 +42,7 @@ router.get("/api/users", (req, res) => {
   res.json(employees);
 });
 router.use(errorHandler);
-router.post("/api/users", (req, res) => {
+router.post("/api/users", crudSchema, crudValidateSchema, (req, res) => {
   const user = {
     id: employees.length + 1,
     name: req.body.name,
@@ -47,7 +52,7 @@ router.post("/api/users", (req, res) => {
   employees.push(user);
   res.json(employees);
 });
-router.use(errorHandler);
+
 router.get("/api/users/:id", (req, res) => {
   const user = employees.find((u) => u.id === parseInt(req.params.id));
   if (!user) {
@@ -57,7 +62,7 @@ router.get("/api/users/:id", (req, res) => {
   res.json(user);
 });
 router.use(errorHandler);
-router.put("/api/users/:id", (req, res) => {
+router.put("/api/users/:id", crudSchema, crudValidateSchema, (req, res) => {
   let person = employees.find((u) => u.id === parseInt(req.params.id));
 
   if (!person) {
@@ -70,7 +75,7 @@ router.put("/api/users/:id", (req, res) => {
   person.phone = req.body.phone;
   res.json(employees);
 });
-router.use(errorHandler);
+
 router.delete("/api/users/:id", (req, res) => {
   const user = employees.find((u) => u.id === parseInt(req.params.id));
   if (!user) {
