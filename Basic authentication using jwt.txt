@@ -1,0 +1,32 @@
+//import jwt
+//import env
+ 
+//create a employee object with username and object you want
+
+app.post("/login",(req,res)=>{
+    const user={name:req.body.name};
+    const createAccessToken= jwt.sign(name,process.env.ACCESS_TOKEN);
+    res.json({accessToken:createAccessToken})
+});
+
+//now with the token then,authenticate the token and produce the authorization to the verified user
+
+//authenticate using headers
+const authenticateToken=(req,res,next)=>{
+    const authHeader=req.headers["authorization"];
+    const token=authHeader && authHeader.split(" ")[1];
+    if(!token)
+    {
+        res.sendStatus(401);
+    }
+    jwt.verify(token,ACCESS_TOKEN,(err,user)=>{
+        if(err){
+            res.sendStatus(401);
+        }
+        req.nabar=user;
+        next();
+    })
+}
+app.post("/login/posts","authenticateToken",(req,res)=>{
+    res.json({req.users.name});
+})
