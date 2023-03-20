@@ -20,11 +20,11 @@ const authenticateToken = (req, res, next) => {
   if (!token) {
     res.sendStatus(401);
   }
-  jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
+  jwt.verify(token, process.env.ACCESS_TOKEN, (err, userDetails) => {
     if (err) {
-      res.sendStatus(401);
+      res.sendStatus(403);
     }
-    req.users = user;
+    req.userDisplay = userDetails;
     next();
   });
 };
@@ -32,13 +32,18 @@ router.get("/", (req, res) => {
   res.json(posts);
 });
 router.post("/login", (req, res) => {
-  const user = { name: req.body.name };
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN);
+  const userDetails = { name: req.body.name };
+  const accessToken = jwt.sign(userDetails, process.env.ACCESS_TOKEN);
   res.json({ accessToken: accessToken });
 });
 router.post("/login/posts", authenticateToken, (req, res) => {
-  console.log(req.users.name);
-  res.json(posts.filter((nabar) => nabar.name === req.users.name));
+  console.log(req.userDisplay.name);
+  const check = posts.filter((nabar) => nabar.name === req.userDisplay.name);
+  if (check) {
+    res.json(check);
+  } else {
+    res.sendStatus(401);
+  }
 });
 
 module.exports = router;
