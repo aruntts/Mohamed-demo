@@ -23,7 +23,8 @@ router.post("/example", async (req, res) => {
   }
 });
 router.post("/example/login", async (req, res) => {
-  const userData = example.find((user) => user.name === req.body.name);
+  const username = req.body.name;
+  const userData = example.find((user) => user.name === username);
   if (userData == null) {
     res.status(404).send("User not found");
   }
@@ -34,7 +35,7 @@ router.post("/example/login", async (req, res) => {
       res.send("Not allowed");
     }
   } catch {
-    res.status(500).send();
+    res.status(500).send("Internal server error");
   }
 });
 
