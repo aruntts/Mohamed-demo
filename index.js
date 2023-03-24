@@ -6,15 +6,13 @@ app.use(express.json());
 
 const crudapi = require(`./Routes/CRUDapi`);
 const uploadFile = require("./Routes/upload");
-const validator = require("./Routes/validation");
-const test = require("./Routes/test");
+const validator = require("./Routes/formValidation");
 const jwt = require("./Routes/jwt");
 const bcrypt = require("./Routes/bcrypt");
 app.use(crudapi);
 app.use(uploadFile);
 app.use(validator);
-app.use(test);
-app.use(jwt);
+// app.use(jwt);
 app.use(bcrypt);
-
+app.use("/userauth", require("./Routes/userAuthentication"));
 app.listen(3001);

@@ -3,9 +3,8 @@ const router = express.Router();
 const bodyparser = require("body-parser");
 router.use(bodyparser.json());
 const errorHandler = require("../Middleware/errorHandler");
-const { check, validationResult } = require("express-validator");
-const crudSchema = require("../schema/crudValidationSchema");
-const crudValidateSchema = require("../Middleware/crudValidationResult");
+const { crudSchema } = require("../schema/validationSchema");
+const crudValidateSchema = require("../Middleware/validationResult");
 const employees = [
   {
     id: 1,
