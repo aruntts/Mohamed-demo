@@ -77,14 +77,7 @@ companySchema.methods.sayHello = function () {
 companySchema.statics.findByCompany = function (name) {
   return this.where({ Company_Name: name });
 };
-const test = mongoose.Schema({
-  name: {
-    type: String,
-  },
-  number: {
-    type: Number,
-  },
-});
+
 const User = mongoose.model("User", userSchema);
 const Company = mongoose.model("Company", companySchema);
 
