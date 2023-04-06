@@ -87,14 +87,5 @@ const test = mongoose.Schema({
 });
 const User = mongoose.model("User", userSchema);
 const Company = mongoose.model("Company", companySchema);
-// const Test = mongoose.model("Test", test);
-// const testCreate = async () => {
-//   const testCreate2 = await Test.create({
-//     name: "Dhaanis",
-//     number: 9092695723,
-//   });
-//   console.log(testCreate2);
-// };
 
-// testCreate();
 module.exports = { User, Company };
