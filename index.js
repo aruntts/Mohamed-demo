@@ -18,7 +18,3 @@ app.use("/mongo/crud", require("./Routes/mongoCRUD"));
 app.use("/userauth", require("./Routes/userAuthentication"));
 app.listen(3001);
 
-// db.companies.aggregate([
-//   { $match: { Employee_name: "AR KHAN" } },
-//   { $group: { _id: "$Employee_name", total: { $sum: "$Networth$" } } },
-// ]);
